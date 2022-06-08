@@ -1,0 +1,62 @@
+SELECT * 
+  FROM product
+;
+  
+insert into product(id, name, description, price, isSoldout)
+			 values(uuid(), '마우스2', '정말 좋은 마우스입니다!!!22', 15000, false)
+;
+			 
+insert into product_saleslocation(id, address, addressDetail, lat, lng, meetingTime)
+							values(uuid(), '구로구', '구로디지털단지역', 0, 1, '2022-12-31')
+;
+							
+select id from product_saleslocation
+;
+
+update product
+   set name = '마우스'
+ where description = '정말 좋은 마우스입니다!!!'
+;
+
+select id, address
+  from product_saleslocation
+ where address = '구로구'
+;
+
+update product
+   set productSaleslocationId = '3c98159c-8597-11ec-9fdf-2140df9e7985'
+ where id = 'baf5cb38-8596-11ec-9fdf-2140df9e7985'
+;
+
+select * from product
+;
+
+select p.name, p.description, price, address, addressDetail
+  from product p, product_saleslocation ps
+ where p.productSaleslocationId = ps.id
+;
+
+;;;;;;;;;;;; 퀴즈 ;;;;;;;;;;;;;;;;
+
+insert into product_category(id, name) values(uuid(), '전자제품');
+insert into product_category(id, name) values(uuid(), '음식');
+insert into product_category(id, name) values(uuid(), '의류');
+
+update product
+   set productCategoryId = '836a46da-859b-11ec-9fdf-2140df9e7985'
+ where name = '셔츠'
+;
+
+update product
+   set productCategoryId = '8239b6e2-859b-11ec-9fdf-2140df9e7985'
+ where name = '키보드' OR name = '마우스'
+;
+
+select p.name as '상품명', pc.name as '카테고리명'
+  from product p, product_category pc
+ where p.productCategoryId = pc.id 
+;
+
+
+
+

@@ -1,0 +1,25 @@
+version: '3.3'
+
+services:
+  my_backend:
+    image: asia.gcr.io/codecamp-308601/my_backend:10.3
+    platform: linux/x86_64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/my_backend/src
+    env_file:
+      - ./.env.prod
+    ports:
+      - 3000:3000
+    command: 'yarn start:prod'
+
+  my_database:
+    platform: linux/x86_64
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: 'myproject'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - 3306:3306
